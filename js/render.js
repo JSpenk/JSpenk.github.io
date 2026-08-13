@@ -103,10 +103,8 @@ function openProjectModal(id) {
         ${section("Software &amp; Control", list(p.software))}
         ${section("Methodology", list(p.methodology))}
         ${section("Results", table)}
-        ${section("Conclusion", `<p>${p.conclusion || ""}</p>`)}
-        <div class="modal-foot">
-          ${(p.links || []).map((l) => `<a class="btn btn-outline btn-sm" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
-        </div>
+        ${section("Conclusion", p.conclusion ? `<p>${p.conclusion}</p>` : "")}
+        ${p.links && p.links.length ? `<div class="modal-foot">${p.links.map((l) => `<a class="btn btn-outline btn-sm" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join("")}</div>` : ""}
       </div>
     </div>
   `;
