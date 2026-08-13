@@ -10,6 +10,7 @@ const ICONS = {
   pcb: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.4" fill="currentColor" stroke="none"/><circle cx="16" cy="16" r="1.4" fill="currentColor" stroke="none"/><path d="M8 9.4V14a2 2 0 0 0 2 2h3.6M16 14.6V10a2 2 0 0 0-2-2H10.4"/></svg>`,
   chip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v4M12 2v4M15 2v4M9 18v4M12 18v4M15 18v4M2 9h4M2 12h4M2 15h4M18 9h4M18 12h4M18 15h4"/></svg>`,
   code: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>`,
+  quantum: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg>`,
 };
 
 function projectCard(p) {
@@ -99,6 +100,7 @@ function openProjectModal(id) {
         <div class="tag-row">${p.tags.map((t) => `<span class="tag">${t}</span>`).join("")}</div>
         ${section("Overview", `<p>${p.overview || p.summary}</p>`)}
         ${section("Architecture &amp; Design", list(p.architecture))}
+        ${section("Software &amp; Control", list(p.software))}
         ${section("Methodology", list(p.methodology))}
         ${section("Results", table)}
         ${section("Conclusion", `<p>${p.conclusion || ""}</p>`)}
