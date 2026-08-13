@@ -49,7 +49,6 @@ const PROJECTS = [
       "The MiSTer framework's output-safety layer masked the sync-line faults that classical CRT theory predicted would be catastrophic — an unexpected but valuable finding about how modern FPGA output pipelines add protective abstraction over raw timing signals. The VBLANK result showed that subtle timing-signal corruption can still leak into rendering even when catastrophic sync failure is prevented, which is exactly the kind of hard-to-diagnose symptom this project set out to characterize.",
     links: [
       { label: "Read Full Paper (PDF)", href: "assets/docs/fpga-fault-injection-tankbattalion.pdf" },
-      { label: "Course Project Docs — Proposal, Progress Reports & Slides (PDF)", href: "assets/docs/fault-simulation-course-project.pdf" },
     ],
   },
   {
@@ -89,7 +88,6 @@ const PROJECTS = [
       "The board passed DRC clean and the full system — hardware and software — ran end-to-end on the track. At the final time trial we didn't hit the speed/accuracy balance we wanted: the camera mount wasn't rigid enough, causing image jitter, and the software's conservative curve-handling (slowing aggressively on any detected turn) traded speed for stability. That result is exactly the kind of system-level debugging this portfolio is meant to highlight — the lane-detection logic was correct in isolation, but mechanical and control-tuning choices elsewhere in the system determined real-world performance. Future revisions would target a stiffer camera mast and less conservative speed control.",
     links: [
       { label: "Full Final Report (PDF)", href: "assets/docs/autonomous-vehicle-final-report.pdf" },
-      { label: "PCB DRC / Fabrication Report (PDF)", href: "assets/docs/autonomous-car-pcb-lab-report.pdf" },
     ],
   },
   {
