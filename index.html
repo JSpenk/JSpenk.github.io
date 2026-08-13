@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Justin Spenker — Computer Engineer</title>
+<meta name="description" content="Justin Spenker — Computer Engineering student at UC Davis specializing in hardware, fault engineering, and embedded systems." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+  <div id="site-header"></div>
+
+  <main>
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="hero-badge"><span class="dot"></span>Open to hardware / fault engineering roles</span>
+          <h1>Justin Spenker builds <span class="accent">hardware that fails predictably</span> — and software that catches it.</h1>
+          <div class="role-line">// Computer Engineering @ UC Davis</div>
+          <p class="lede">
+            I work at the intersection of digital hardware and the software that drives, tests, and diagnoses it — FPGA design,
+            PCB layout, fault injection, and embedded systems. This site tracks the projects, coursework, and skills behind that.
+          </p>
+          <div class="hero-cta">
+            <a href="projects.html" class="btn btn-primary">View Projects</a>
+            <a href="resume.html" class="btn btn-outline">Resume &amp; Contact</a>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <div class="panel-dots"><span></span><span></span><span></span></div>
+          <div class="panel-line"><span class="k">target_roles</span><span class="v">Hardware / Fault / Hybrid SW-HW Eng.</span></div>
+          <div class="panel-line"><span class="k">program</span><span class="v">B.S. Computer Engineering, UC Davis</span></div>
+          <div class="panel-line"><span class="k">focus</span><span class="v">FPGA, PCB Design, Fault Diagnosis</span></div>
+          <div class="panel-line"><span class="k">languages</span><span class="v">Verilog, C/C++, Python</span></div>
+          <div class="panel-line"><span class="k">status</span><span class="v">Actively building &amp; shipping projects</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Stat strip ===== -->
+    <div class="stat-strip container" style="padding-left:0; padding-right:0; max-width: var(--max-w); margin:0 auto;">
+      <div><div class="num">2</div><div class="label">Featured hardware projects</div></div>
+      <div><div class="num">20+</div><div class="label">Engineering &amp; CS courses completed</div></div>
+      <div><div class="num">FPGA</div><div class="label">Verilog / SystemVerilog design</div></div>
+      <div><div class="num">PCB</div><div class="label">Altium schematic-to-fab layout</div></div>
+    </div>
+
+    <!-- ===== Featured Projects ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Selected Work</span>
+          <h2>Featured Projects</h2>
+          <p>Two projects that best represent the hardware/software hybrid work I want to keep doing — a fault-injection research study and a senior-design PCB build.</p>
+        </div>
+        <div class="project-grid" id="featured-projects"></div>
+        <div style="margin-top:32px;">
+          <a href="projects.html" class="btn btn-ghost">See all projects &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Skills strip ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Toolbox</span>
+          <h2>Core Skills</h2>
+          <p>A quick snapshot — full breakdown with relevant coursework lives on the Skills page.</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Verilog / SystemVerilog</span>
+          <span class="chip">FPGA (DE10-Nano / MiSTer)</span>
+          <span class="chip">PCB Design (Altium)</span>
+          <span class="chip">Fault Injection &amp; Diagnosis</span>
+          <span class="chip">Embedded C</span>
+          <span class="chip">Digital Logic Design</span>
+          <span class="chip">Python</span>
+          <span class="chip">Computer Architecture</span>
+          <span class="chip">HTML / CSS / JavaScript</span>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="skills.html" class="btn btn-ghost">View full skills &amp; coursework &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="section" style="border-bottom:none;">
+      <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;">
+        <div>
+          <span class="eyebrow">Let's talk</span>
+          <h2 style="margin-top:10px; font-size:1.5rem;">Looking for hardware, fault, or hybrid SW/HW engineering roles.</h2>
+        </div>
+        <a href="resume.html" class="btn btn-primary">Get in touch</a>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <div class="modal-overlay" id="project-modal"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderFeaturedProjects();
+      initModalOverlay();
+    });
+  </script>
+</body>
+</html>

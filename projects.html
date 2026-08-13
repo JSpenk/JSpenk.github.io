@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Justin Spenker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="projects">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:60px;">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Portfolio</span>
+          <h2>Projects</h2>
+          <p>Hardware, firmware, and fault-analysis work. This grid is data-driven — new projects get added to <code class="mono">js/data.js</code> and appear here automatically.</p>
+        </div>
+
+        <div class="filter-row" id="filter-row"></div>
+        <div class="project-grid" id="project-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <div class="modal-overlay" id="project-modal"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProjectFilters();
+      renderAllProjects();
+      initModalOverlay();
+    });
+  </script>
+</body>
+</html>

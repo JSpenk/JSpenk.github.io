@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Skills &amp; Coursework — Justin Spenker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="skills">
+
+  <div id="site-header"></div>
+
+  <main>
+    <section class="section" style="padding-top:60px; padding-bottom:60px;">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Capabilities</span>
+          <h2>Skills</h2>
+          <p>Grouped by area. Edit <code class="mono">SKILL_GROUPS</code> in <code class="mono">js/data.js</code> to update this list.</p>
+        </div>
+        <div class="skill-groups" id="skill-groups"></div>
+      </div>
+    </section>
+
+    <section class="section" style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Academics</span>
+          <h2>Relevant Coursework</h2>
+          <p>Courses from my Computer Engineering program at UC Davis most relevant to hardware, fault engineering, and embedded systems roles.</p>
+        </div>
+        <div class="course-groups" id="course-groups"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderSkillGroups();
+      renderCoursework();
+    });
+  </script>
+</body>
+</html>
