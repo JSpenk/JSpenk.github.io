@@ -56,9 +56,7 @@ const PROJECTS = [
     },
     conclusion:
       "MiSTer's output-safety layer masked sync-line faults that classical CRT theory predicted would be catastrophic — an unexpected finding about how modern FPGA output pipelines add protective abstraction over raw timing signals, and a reminder that test methodology has to account for the platform, not just the design under test. Redirecting the campaign toward sprite, audio, and physics/collision logic proved more productive: those subsystems were both safely observable and fault-sensitive, breaking gameplay in over half of tested cases and showing that fault sensitivity in this system extended well beyond the video-timing chain alone.",
-    links: [
-      { label: "Read Full Paper (PDF)", href: "assets/docs/fpga-fault-injection-tankbattalion.pdf" },
-    ],
+    links: [],
   },
   {
     id: "autonomous-car-pcb",
@@ -96,9 +94,7 @@ const PROJECTS = [
     ],
     conclusion:
       "The board passed DRC clean and the full system — hardware and software — ran end-to-end on the track. At the final time trial the car didn't hit the speed/accuracy balance the team wanted: the camera mount wasn't rigid enough, causing image jitter, and the software's conservative curve-handling traded speed for stability. That's the kind of system-level debugging this project is meant to show — the lane-detection logic was correct in isolation, but mechanical and control-tuning choices elsewhere in the system determined real-world performance.",
-    links: [
-      { label: "Full Final Report (PDF)", href: "assets/docs/autonomous-vehicle-final-report.pdf" },
-    ],
+    links: [],
   },
   {
     id: "semiconductor-fabrication-cleanroom",
