@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About — Justin Spenker</title>
+<meta name="description" content="A bit about Justin Spenker outside of coursework and projects." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
@@ -13,21 +14,93 @@
   <div id="site-header"></div>
 
   <main>
-    <div class="stub-wrap">
-      <div class="stub-inner">
-        <span class="eyebrow" style="justify-content:center;">In progress</span>
-        <h2>About page — coming soon</h2>
-        <p>This page is intentionally on hold for now. When it's ready it'll live at this same URL, so nothing else on the site needs to change.</p>
-        <div style="margin-top:24px;">
-          <a href="projects.html" class="btn btn-outline">Browse Projects instead</a>
+    <!-- ===== About hero ===== -->
+    <section class="section" style="padding-top:60px;">
+      <div class="container about-hero">
+        <!--
+          To use a real photo: delete the .avatar-placeholder div below and
+          replace it with, e.g.:
+          <img src="assets/img/headshot.jpg" alt="Justin Spenker" class="avatar-photo">
+          (drop the image file into an assets/img/ folder next to assets/docs/)
+        -->
+        <div class="avatar-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+          <span>Add photo</span>
+        </div>
+
+        <div>
+          <span class="eyebrow">About</span>
+          <h2>Hi, I'm Justin.</h2>
+          <p class="lede">
+            I got into computer engineering because I liked taking things apart more than putting them back together —
+            that curiosity turned into a Computer Engineering degree at UC Davis focused on hardware, FPGA design,
+            and fault-tolerant systems. I'm currently looking for roles where I get to keep doing exactly that: build
+            hardware, then figure out how to break it on purpose.
+          </p>
+          <div class="hero-cta">
+            <a href="projects.html" class="btn btn-primary">View Projects</a>
+            <a href="resume.html" class="btn btn-outline">Get in Touch</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- ===== Outside of engineering ===== -->
+    <section class="section" style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Outside of Engineering</span>
+          <h2>Outside the Lab</h2>
+          <p>Outside of class and lab time, I've got four cats who've each individually walked across a keyboard mid-debug at least once. Here's a few of them.</p>
+        </div>
+
+        <!--
+          To use real photos: replace the .cat-placeholder div inside each
+          .cat-slide with an <img> tag, e.g.:
+          <img src="assets/img/cat-1.jpg" alt="My cat, [name]">
+          Add or remove .cat-slide blocks to change the photo count — the
+          carousel (js/about.js) adjusts automatically to however many
+          slides are present.
+        -->
+        <div class="carousel" id="cat-carousel">
+          <div class="carousel-track" id="cat-track">
+            <div class="cat-slide">
+              <div class="cat-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8c0-2 1-4 2-4l1 3M20 8c0-2-1-4-2-4l-1 3"/><path d="M4 8h16v6a8 8 0 0 1-16 0V8Z"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/><path d="M10.5 15c.5.6 2.5.6 3 0"/></svg>
+                <span>Cat 1</span>
+              </div>
+            </div>
+            <div class="cat-slide">
+              <div class="cat-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8c0-2 1-4 2-4l1 3M20 8c0-2-1-4-2-4l-1 3"/><path d="M4 8h16v6a8 8 0 0 1-16 0V8Z"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/><path d="M10.5 15c.5.6 2.5.6 3 0"/></svg>
+                <span>Cat 2</span>
+              </div>
+            </div>
+            <div class="cat-slide">
+              <div class="cat-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8c0-2 1-4 2-4l1 3M20 8c0-2-1-4-2-4l-1 3"/><path d="M4 8h16v6a8 8 0 0 1-16 0V8Z"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/><path d="M10.5 15c.5.6 2.5.6 3 0"/></svg>
+                <span>Cat 3</span>
+              </div>
+            </div>
+            <div class="cat-slide">
+              <div class="cat-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 8c0-2 1-4 2-4l1 3M20 8c0-2-1-4-2-4l-1 3"/><path d="M4 8h16v6a8 8 0 0 1-16 0V8Z"/><circle cx="9" cy="12" r="0.8" fill="currentColor"/><circle cx="15" cy="12" r="0.8" fill="currentColor"/><path d="M10.5 15c.5.6 2.5.6 3 0"/></svg>
+                <span>Cat 4</span>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" id="cat-prev" type="button" aria-label="Previous photo">&larr;</button>
+          <button class="carousel-btn next" id="cat-next" type="button" aria-label="Next photo">&rarr;</button>
+          <div class="carousel-dots" id="cat-dots"></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div id="site-footer"></div>
 
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>
+  <script src="js/about.js"></script>
 </body>
 </html>

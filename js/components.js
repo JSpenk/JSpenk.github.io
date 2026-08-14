@@ -18,7 +18,7 @@ const NAV_ITEMS = [
   { href: "demo-fault-injection.html", label: "Demos", page: "demo", isNew: true },
   { href: "skills.html", label: "Skills", page: "skills" },
   { href: "resume.html", label: "Resume", page: "resume" },
-  { href: "about.html", label: "About", page: "about", soon: true },
+  { href: "about.html", label: "About", page: "about" },
 ];
 
 function renderHeader() {
