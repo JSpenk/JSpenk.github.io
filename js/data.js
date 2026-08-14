@@ -56,6 +56,7 @@ const PROJECTS = [
     },
     conclusion:
       "MiSTer's output-safety layer masked sync-line faults that classical CRT theory predicted would be catastrophic — an unexpected finding about how modern FPGA output pipelines add protective abstraction over raw timing signals, and a reminder that test methodology has to account for the platform, not just the design under test. Redirecting the campaign toward sprite, audio, and physics/collision logic proved more productive: those subsystems were both safely observable and fault-sensitive, breaking gameplay in over half of tested cases and showing that fault sensitivity in this system extended well beyond the video-timing chain alone.",
+    interactiveDemo: "demo-fault-injection.html",
     links: [],
   },
   {
@@ -141,6 +142,7 @@ const PROJECTS = [
     ],
     conclusion:
       "The simulator makes an otherwise abstract protocol — entanglement, Bell tests, information-theoretic security — concrete and interactively explorable, while staying grounded in real hardware limitations (loss, noise, detector imperfections) rather than an idealized textbook channel. It's an ongoing project; current work is on expanding the device-independent bound options and the satellite-link noise model.",
+    interactiveDemo: "demo-fault-injection.html#qkd",
     links: [
       { label: "View Source — Entry Point (main.py)", href: "assets/docs/qkd-main.py" },
       { label: "View Source — Experiment Config (Python)", href: "assets/docs/qkd-experiment-config.py" },
@@ -170,6 +172,7 @@ const PROJECTS = [
     methodology: ["Bullet 1", "Bullet 2"],
     resultsTable: null, // or { headers: [...], rows: [[...], ...] }
     conclusion: "Wrap-up / outcome paragraph.",
+    interactiveDemo: null, // optional — path to a demo page; adds a card badge + primary modal button
     links: [{ label: "Link label", href: "https://..." }],
   },
   --------------------------------------------------------- */

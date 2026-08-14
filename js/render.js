@@ -11,13 +11,17 @@ const ICONS = {
   chip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v4M12 2v4M15 2v4M9 18v4M12 18v4M15 18v4M2 9h4M2 12h4M2 15h4M18 9h4M18 12h4M18 15h4"/></svg>`,
   code: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>`,
   quantum: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/></svg>`,
+  cursor: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v17l4.5-4h6L5 3Z"/></svg>`,
 };
 
 function projectCard(p) {
+  const demoBadge = p.interactiveDemo
+    ? `<span class="demo-badge">${ICONS.cursor}Interactive Demo</span>`
+    : "";
   return `
     <button class="card-btn-reset" data-open-project="${p.id}" type="button">
       <article class="project-card">
-        <div class="thumb">${ICONS[p.icon] || ICONS.chip}</div>
+        <div class="thumb">${demoBadge}${ICONS[p.icon] || ICONS.chip}</div>
         <div class="body">
           <div class="cat">${p.category}</div>
           <h3>${p.title}</h3>
@@ -104,7 +108,10 @@ function openProjectModal(id) {
         ${section("Methodology", list(p.methodology))}
         ${section("Results", table)}
         ${section("Conclusion", p.conclusion ? `<p>${p.conclusion}</p>` : "")}
-        ${p.links && p.links.length ? `<div class="modal-foot">${p.links.map((l) => `<a class="btn btn-outline btn-sm" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join("")}</div>` : ""}
+        ${(p.interactiveDemo || (p.links && p.links.length)) ? `<div class="modal-foot">
+          ${p.interactiveDemo ? `<a class="btn btn-primary btn-sm" href="${p.interactiveDemo}">${ICONS.cursor}Try the Interactive Demo</a>` : ""}
+          ${(p.links || []).map((l) => `<a class="btn btn-outline btn-sm" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join("")}
+        </div>` : ""}
       </div>
     </div>
   `;

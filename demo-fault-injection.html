@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interactive Demos — Justin Spenker</title>
+<meta name="description" content="Interactive illustrations of two projects: FPGA fault injection / hardware validation, and E91 quantum key distribution." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="demo">
+
+  <div id="site-header"></div>
+
+  <main>
+    <!-- ===== Fault Injection Demo ===== -->
+    <section class="section" id="fault-injection" style="padding-top:60px;">
+      <div class="container">
+        <div class="demo-jump">
+          <a href="#fault-injection" class="demo-jump-link active">Fault Injection</a>
+          <a href="#qkd" class="demo-jump-link">Quantum Key Distribution</a>
+        </div>
+
+        <div class="section-head">
+          <span class="eyebrow">Interactive Illustration</span>
+          <h2>Fault Injection Demo</h2>
+          <p>A clickable walkthrough of the fault types covered in my <a href="projects.html" style="color:var(--accent); font-weight:600;">FPGA Fault Injection case study</a>. Toggle a fault below to see the effect it would be expected to produce, and why.</p>
+        </div>
+
+        <div class="demo-disclaimer">
+          <span class="mono" style="color:var(--copper); font-weight:700;">i</span>
+          <div>
+            <strong>What this is (and isn't):</strong> this is a hand-built canvas illustration, not the actual Verilog/FPGA hardware running in your browser — there's no HDL simulation happening here. Each fault shows the <em>expected</em> effect based on how the underlying timing/control signals work (the same "Expected Effect" column from the real results table), plus a short explanation of why. It's meant to demonstrate the reasoning behind the case study, not replay one specific test run.
+          </div>
+        </div>
+
+        <div class="demo-layout">
+          <div>
+            <div class="demo-monitor">
+              <canvas id="demo-canvas" width="480" height="300"></canvas>
+              <canvas id="signal-canvas" width="480" height="120"></canvas>
+            </div>
+          </div>
+
+          <div class="demo-side">
+            <div class="demo-panel">
+              <h4>Inject a Fault</h4>
+              <div id="fault-controls"></div>
+              <button id="reset-faults" class="btn btn-outline btn-sm" style="width:100%; justify-content:center; margin-top:12px;" type="button">Clear All Faults</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QKD Demo ===== -->
+    <section class="section" id="qkd" style="border-bottom:none;">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Interactive Illustration</span>
+          <h2>Quantum Key Distribution Demo</h2>
+          <p>A simplified, browser-native walkthrough of my <a href="projects.html" style="color:var(--accent); font-weight:600;">E91 QKD simulator</a>.</p>
+        </div>
+
+        <div class="demo-disclaimer">
+          <span class="mono" style="color:var(--copper); font-weight:700;">i</span>
+          <div>
+            <strong>The goal, plainly:</strong> E91 lets two parties (Alice and Bob) agree on a shared secret encryption key over a public channel — and unlike most encryption, an eavesdropper isn't just "hard to detect," they're <em>provably</em> detectable, because listening in on quantum-entangled particles physically disturbs the correlation between them. That disturbance shows up as two measurable numbers: <strong>QBER</strong> (how many key bits came out wrong) and the <strong>CHSH value</strong> (how strongly Alice and Bob's results violate what's classically possible — the whole basis of the security proof). This demo reimplements that core statistics engine directly in JavaScript, using the same correlation math (based on measurement-angle differences) as my Python/Qiskit simulator — it is not Qiskit running in your browser, just the same underlying formula.
+          </div>
+        </div>
+
+        <div class="demo-layout">
+          <div>
+            <div class="demo-monitor">
+              <canvas id="qkd-canvas" width="480" height="220"></canvas>
+            </div>
+            <div class="qkd-stats">
+              <div class="qkd-stat"><span class="qs-label">Pairs Sent</span><span class="qs-value" id="qkd-pairs">0</span></div>
+              <div class="qkd-stat"><span class="qs-label">Key Bits</span><span class="qs-value" id="qkd-keybits">0</span></div>
+              <div class="qkd-stat"><span class="qs-label">QBER</span><span class="qs-value" id="qkd-qber">0.0%</span></div>
+              <div class="qkd-stat"><span class="qs-label">CHSH S</span><span class="qs-value" id="qkd-chsh">0.000</span></div>
+            </div>
+            <div class="qkd-gauge-wrap">
+              <div class="qkd-gauge-track">
+                <div class="qkd-gauge-zone-classical"></div>
+                <div class="qkd-gauge-fill" id="qkd-gauge-fill"></div>
+                <div class="qkd-gauge-marker" id="qkd-gauge-marker"></div>
+              </div>
+              <div class="qkd-gauge-labels">
+                <span>0</span>
+                <span>Classical bound (2.0)</span>
+                <span>Quantum max (2.83)</span>
+              </div>
+            </div>
+            <div class="qkd-verdict" id="qkd-verdict">Send some pairs to check channel security &rarr;</div>
+          </div>
+
+          <div class="demo-side">
+            <div class="demo-panel">
+              <h4>Eavesdropper (Eve) Activity</h4>
+              <input type="range" id="qkd-eve-slider" min="0" max="100" value="0" class="qkd-slider" />
+              <div class="qkd-slider-value"><span id="qkd-eve-value">0</span>% of pairs intercepted</div>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin-top:10px;">Slide this up to simulate an eavesdropper intercepting and resending photons — watch QBER rise and CHSH fall.</p>
+            </div>
+            <div class="demo-panel">
+              <h4>Run the Protocol</h4>
+              <button id="qkd-send-1" class="btn btn-outline btn-sm" style="width:100%; justify-content:center; margin-bottom:8px;" type="button">Send 1 Pair</button>
+              <button id="qkd-send-100" class="btn btn-primary btn-sm" style="width:100%; justify-content:center; margin-bottom:8px;" type="button">Send 200 Pairs</button>
+              <button id="qkd-reset" class="btn btn-ghost btn-sm" style="width:100%; justify-content:center;" type="button">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container" style="padding-bottom:60px;">
+      <a href="projects.html" class="btn btn-ghost">&larr; Back to Projects</a>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/fault-demo.js"></script>
+  <script src="js/qkd-demo.js"></script>
+</body>
+</html>
