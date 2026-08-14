@@ -15,14 +15,14 @@ const PROJECTS = [
     icon: "fpga",
     category: "Fault Engineering / FPGA",
     title: "FPGA Fault Injection: Tank Battalion Hardware Emulation",
-    role: "Co-Researcher",
-    collaborators: "with Kyle Osborn",
+    role: "Lead Researcher — formulated the project and carried out the full experimental campaign",
+    collaborators: "paper co-authored with Kyle Osborn, who contributed early FPGA/MiSTer platform bring-up",
     period: "Winter 2026 — EEC 286, Digital System Testing",
     tags: ["FPGA", "Verilog / SystemVerilog", "Fault Injection", "MiSTer", "Hardware Debug", "Reliability", "DFT"],
     summary:
       "Reproduced the original Tank Battalion arcade board — CPU control logic, video timing, sprite rendering, and memory-mapped I/O — on a DE10-Nano FPGA, then used a phased, controlled fault-injection campaign (stuck-at faults, transient bit flips) to study how hardware faults propagate into observable symptoms like display corruption and gameplay anomalies.",
     overview:
-      "Originally proposed as 'Fault Simulation for Specialized Hardware,' this course project set out to answer a practical problem: diagnosing FPGA failures is hard because hardware faults often masquerade as software bugs. Once a design is synthesized, placed, and routed, behavior depends not just on HDL logic but on timing margins, routing delay, clock stability, and configuration-memory state — so the same symptom (freeze, glitch, wrong output) can come from very different root causes. We built a controlled testbed to study that boundary directly: a cycle-accurate recreation of a classic arcade board, instrumented so specific internal signals could be forced to incorrect logic values on demand, following an evidence-first workflow of observe &rarr; measure &rarr; isolate &rarr; confirm rather than trial-and-error guessing.",
+      "Originally proposed as 'Fault Simulation for Specialized Hardware,' this course project set out to answer a practical problem: diagnosing FPGA failures is hard because hardware faults often masquerade as software bugs. Once a design is synthesized, placed, and routed, behavior depends not just on HDL logic but on timing margins, routing delay, clock stability, and configuration-memory state — so the same symptom (freeze, glitch, wrong output) can come from very different root causes. Originally scoped as a 3-person team project, I ended up formulating the methodology and carrying out the full experimental campaign myself after two teammates dropped the course partway through — Kyle Osborn, who remained on the paper as co-author, had contributed the initial FPGA/MiSTer platform bring-up before that point. I built a controlled testbed to study the software-vs-hardware fault boundary directly: a cycle-accurate recreation of a classic arcade board, instrumented so specific internal signals could be forced to incorrect logic values on demand, following an evidence-first workflow of observe &rarr; measure &rarr; isolate &rarr; confirm rather than trial-and-error guessing.",
     architecture: [
       "Recreated board architecture from published schematics: 6502-based CPU, ROM/RAM, video timing counters, sprite/tile rendering, and audio latch logic — reverse-engineered from the original PCB schematic by tracing signal flow subsystem by subsystem.",
       "Implemented on a DE10-Nano within the MiSTer FPGA framework using synthesizable Verilog/SystemVerilog.",
