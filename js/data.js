@@ -221,7 +221,6 @@ const COURSEWORK = [
       { code: "EEC 189L", name: "Solid-State Devices & Physical Electronics" },
       { code: "EEC 100", name: "Circuits II" },
       { code: "ENG 017", name: "Circuits I" },
-      { code: "EEC 130A", name: "Electromagnetics I" },
       { code: "EEC 173A", name: "Computer Networks" },
     ],
   },
