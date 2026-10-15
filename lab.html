@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fault Lab — Justin Spenker</title>
+<meta name="description" content="Interactive fault-injection lab: play a tank game and inject stuck-at faults into its video timing, based on a real FPGA reproduction of an arcade board." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/lab.css" />
+</head>
+<body data-page="lab">
+
+  <div id="site-header"></div>
+
+  <main>
+    <div class="lab-dark">
+    <section class="lab-hero">
+      <div class="container hero-row">
+        <div>
+          <a href="demo-fault-injection.html" class="back-link">&larr; All demos</a>
+          <span class="eyebrow">Interactive Lab</span>
+          <h1>Break the hardware. <span class="accent">Watch what happens.</span></h1>
+        </div>
+        <p class="lede">
+          Play, then inject stuck-at faults into the video timing and controls. The timing comes from simulating my FPGA
+          reproduction of an arcade board. Two modes show what CRT theory <em>expected</em> versus what I <em>measured</em>.
+        </p>
+      </div>
+    </section>
+
+    <section class="lab-main">
+      <div class="container lab-grid">
+
+        <!-- ================= CABINET ================= -->
+        <div class="cabinet" id="cabinet" data-alert="0">
+          <div class="marquee">
+            <span class="cab-led" id="cab-led"></span>
+            <span class="cab-title">TANK<i>//</i>FAULT&nbsp;LAB</span>
+            <span class="cab-meta"><b id="hud-score">000000</b> pts &middot; wave <b id="hud-wave">1</b></span>
+          </div>
+
+          <div class="bezel">
+            <div class="crt" id="stage" tabindex="0" role="application" aria-label="Tank game. Arrow keys or WASD to move, space to fire, enter to start.">
+              <canvas id="screen" width="224" height="256"></canvas>
+              <div class="scan" aria-hidden="true"></div>
+              <div class="glass" aria-hidden="true"></div>
+              <div class="osd" id="osd" hidden></div>
+              <button class="overlay-play" id="overlay-play" type="button">
+                <span>Click to play</span>
+                <small>arrows / WASD move &middot; space fires</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="cab-bar">
+            <button class="btn btn-primary btn-sm" id="btn-start" type="button">Start / restart</button>
+            <button class="btn btn-outline btn-sm" id="btn-sound" type="button" aria-pressed="false">
+              <span>Sound off</span>
+            </button>
+            <span class="keys" aria-hidden="true"><kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> move <kbd>Space</kbd> fire</span>
+          </div>
+
+          <div class="touch" aria-label="Touch controls">
+            <div class="dpad">
+              <button type="button" data-key="up" aria-label="Up">&uarr;</button>
+              <button type="button" data-key="left" aria-label="Left">&larr;</button>
+              <button type="button" data-key="right" aria-label="Right">&rarr;</button>
+              <button type="button" data-key="down" aria-label="Down">&darr;</button>
+            </div>
+            <button type="button" class="fire" data-key="fire" aria-label="Fire">FIRE</button>
+          </div>
+        </div>
+
+        <!-- ================= CONTROL PANEL ================= -->
+        <aside class="panel" aria-label="Fault injector">
+
+          <div class="coverage" id="coverage" aria-label="Fault coverage">
+            <div class="cov-top"><span>Fault coverage</span><b id="cov-num">0 / 10</b></div>
+            <div class="cov-bar"><i id="cov-fill"></i></div>
+            <div class="cov-pips" id="cov-pips"></div>
+          </div>
+
+          <div class="status" id="status" data-state="ok" role="status" aria-live="polite"></div>
+
+          <div class="card">
+            <div class="card-h"><span class="idx">01</span> Fault injector</div>
+            <div class="grp-l">Video timing</div>
+            <div class="seg">
+              <button type="button" data-target="HSYNC" aria-pressed="true">HSYNC</button>
+              <button type="button" data-target="VSYNC" aria-pressed="false">VSYNC</button>
+              <button type="button" data-target="HBLANK" aria-pressed="false">HBLANK</button>
+              <button type="button" data-target="VBLANK" aria-pressed="false">VBLANK</button>
+            </div>
+            <div class="grp-l">Controls</div>
+            <div class="seg">
+              <button type="button" data-target="UP" aria-pressed="false">UP</button>
+              <button type="button" data-target="DOWN" aria-pressed="false">DOWN</button>
+              <button type="button" data-target="LEFT" aria-pressed="false">LEFT</button>
+              <button type="button" data-target="RIGHT" aria-pressed="false">RIGHT</button>
+              <button type="button" data-target="FIRE" aria-pressed="false">FIRE</button>
+            </div>
+            <div class="row-split">
+              <div>
+                <div class="grp-l">Fault type</div>
+                <div class="seg two">
+                  <button type="button" data-level="0" aria-pressed="false">Stuck-at-0</button>
+                  <button type="button" data-level="1" aria-pressed="true">Stuck-at-1</button>
+                </div>
+              </div>
+              <label class="chk"><input type="checkbox" id="chk-inter" /> <span>Intermittent<small>random bursts</small></span></label>
+            </div>
+            <div class="actions">
+              <button class="btn btn-primary" id="btn-inject" type="button">Inject fault</button>
+              <button class="btn btn-outline" id="btn-flip" type="button" title="Flip one random bit in the tile RAM (single-event upset)">Bit-flip tile RAM</button>
+              <button class="btn btn-ghost" id="btn-clear" type="button">Clear &amp; scrub</button>
+            </div>
+            <div class="chips" id="chips" aria-live="polite"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-h"><span class="idx">02</span> Output stage</div>
+            <div class="switch-row">
+              <button class="switch" id="sw-protect" type="button" role="switch" aria-checked="false" aria-labelledby="protect-title"><i></i></button>
+              <div>
+                <div id="protect-title" class="sw-title">MiSTer output protection</div>
+                <div class="sw-sub" id="protect-label">OFF: raw CRT theory</div>
+              </div>
+            </div>
+            <p class="note">ON reproduces what I measured: sync and HBLANK faults were masked, VBLANK leaked red pixels. OFF shows what CRT theory predicted. That gap was the finding of the project.</p>
+          </div>
+
+          <div class="card">
+            <div class="card-h"><span class="idx">03</span> Signal monitor</div>
+            <div class="sig-grid">
+              <div class="sig" data-sig="HSYNC"><i class="led"></i><b>HSYNC</b><span class="val"></span></div>
+              <div class="sig" data-sig="VSYNC"><i class="led"></i><b>VSYNC</b><span class="val"></span></div>
+              <div class="sig" data-sig="HBLANK"><i class="led"></i><b>HBLANK</b><span class="val"></span></div>
+              <div class="sig" data-sig="VBLANK"><i class="led"></i><b>VBLANK</b><span class="val"></span></div>
+              <div class="sig in" data-sig="UP"><i class="led"></i><b>UP</b><span class="val"></span></div>
+              <div class="sig in" data-sig="DOWN"><i class="led"></i><b>DOWN</b><span class="val"></span></div>
+              <div class="sig in" data-sig="LEFT"><i class="led"></i><b>LEFT</b><span class="val"></span></div>
+              <div class="sig in" data-sig="RIGHT"><i class="led"></i><b>RIGHT</b><span class="val"></span></div>
+              <div class="sig in" data-sig="FIRE"><i class="led"></i><b>FIRE</b><span class="val"></span></div>
+            </div>
+            <p class="note">Video LEDs show each signal's duty cycle (their brightness); a red ring means the line is forced.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= CAMPAIGN + LOG ================= -->
+    <section class="section lab-camp">
+      <div class="container camp-grid">
+        <div>
+          <div class="section-head" style="margin-bottom:22px;">
+            <span class="eyebrow">Campaign</span>
+            <h2>Replay the experiment</h2>
+            <p>Autopilot plays while each fault is injected for four seconds, the same stuck-at campaign from my EEC 286 report. Flip the output protection switch and run it again to compare.</p>
+          </div>
+          <button class="btn btn-primary" id="btn-campaign" type="button" aria-pressed="false">Replay campaign</button>
+          <div class="table-wrap">
+            <table class="result-table" id="results">
+              <thead><tr><th>Fault</th><th>Expected (CRT theory)</th><th>This run</th></tr></thead>
+              <tbody>
+                <tr><td>HSYNC stuck-at</td><td>Loss of horizontal lock</td><td class="obs">pending</td></tr>
+                <tr><td>VSYNC stuck-at</td><td>Vertical roll / collapse</td><td class="obs">pending</td></tr>
+                <tr><td>HBLANK stuck-at</td><td>Black screen or retrace artifacts</td><td class="obs">pending</td></tr>
+                <tr><td>VBLANK stuck-at</td><td>Frame blanking failure</td><td class="obs">pending</td></tr>
+                <tr><td>Movement input</td><td>Continuous or absent movement</td><td class="obs">pending</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="term">
+            <div class="term-h"><span></span><span></span><span></span><b>event_log</b></div>
+            <div class="log" id="log" role="log" aria-live="off"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </div><!-- /lab-dark -->
+
+    <!-- ================= HOW IT WORKS ================= -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Under the hood</span>
+          <h2>What's real and what's simulated</h2>
+        </div>
+        <div class="facts">
+          <div class="fact">
+            <div class="num">59.19 Hz</div>
+            <h3>Measured timing</h3>
+            <p>I simulated the board's Verilog (<code class="mono">Tankb_fpga.v</code>) in Icarus Verilog and timed the outputs: 6 MHz pixel clock, 384 &times; 264 raster, 64 &micro;s lines, 5.33 &micro;s HSYNC, 8-line VSYNC, 256 &times; 224 visible. The game steps at exactly that frame rate.</p>
+          </div>
+          <div class="fact">
+            <div class="num">9 lines</div>
+            <h3>Fault bus</h3>
+            <p>Each target is a signal that can be forced to 0 or 1, permanently or in random bursts. Control faults rewrite the input lines before the game reads them, and video faults act on the display stage.</p>
+          </div>
+          <div class="fact">
+            <div class="num">Original</div>
+            <h3>Game &amp; art</h3>
+            <p>The tank game, sprites and sound are original code written for this page. The arcade ROMs are Namco's, so they are not included. The display behavior is modeled on the real hardware's timing, not copied from it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/lab/tank-timing.js"></script>
+  <script src="js/lab/tank-faults.js"></script>
+  <script src="js/lab/tank-game.js"></script>
+  <script src="js/lab/tank-crt.js"></script>
+  <script src="js/lab/tank-lab.js"></script>
+</body>
+</html>

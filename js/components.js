@@ -15,7 +15,8 @@ const SITE = {
 const NAV_ITEMS = [
   { href: "index.html", label: "Home", page: "home" },
   { href: "projects.html", label: "Projects", page: "projects" },
-  { href: "demo-fault-injection.html", label: "Demos", page: "demo", isNew: true },
+  { href: "demo-fault-injection.html", label: "Demos", page: "demo" },
+  { href: "lab.html", label: "Lab", page: "lab", isNew: true },
   { href: "skills.html", label: "Skills", page: "skills" },
   { href: "resume.html", label: "Resume", page: "resume" },
   { href: "about.html", label: "About", page: "about" },

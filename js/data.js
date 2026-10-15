@@ -57,7 +57,7 @@ const PROJECTS = [
     conclusion:
       "MiSTer's output-safety layer masked sync-line faults that classical CRT theory predicted would be catastrophic — an unexpected finding about how modern FPGA output pipelines add protective abstraction over raw timing signals, and a reminder that test methodology has to account for the platform, not just the design under test. Redirecting the campaign toward sprite, audio, and physics/collision logic proved more productive: those subsystems were both safely observable and fault-sensitive, breaking gameplay in over half of tested cases and showing that fault sensitivity in this system extended well beyond the video-timing chain alone.",
     interactiveDemo: "demo-fault-injection.html",
-    links: [],
+    links: [{ label: "Try the Playable Fault Lab", href: "lab.html" }],
   },
   {
     id: "autonomous-car-pcb",
