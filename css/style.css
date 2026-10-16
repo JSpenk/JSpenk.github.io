@@ -673,6 +673,19 @@ button { font-family: inherit; cursor: pointer; }
   margin-top: 8px;
 }
 
+/* ---------- Resume / experience ---------- */
+.exp-list { display: flex; flex-direction: column; gap: 18px; }
+.exp-item {
+  background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 24px 28px;
+}
+.exp-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+.exp-head h3 { font-size: 1.05rem; }
+.exp-org { color: var(--text-muted); font-size: 0.9rem; margin-top: 2px; }
+.exp-date { font-family: var(--mono); font-size: 0.78rem; color: var(--text-faint); }
+.exp-item ul { padding-left: 18px; color: var(--text-muted); font-size: 0.92rem; }
+.exp-item li { margin-bottom: 6px; }
+
 /* ---------- About page ---------- */
 .about-hero {
   display: grid;
@@ -710,13 +723,12 @@ button { font-family: inherit; cursor: pointer; }
 .cat-slide {
   position: relative;
   flex: 0 0 100%;
-  height: min(78vh, 620px);
+  aspect-ratio: 16 / 8;
   display: flex; align-items: center; justify-content: center;
-  background: var(--bg-raised);
 }
 .cat-slide img {
   width: 100%; height: 100%;
-  object-fit: contain; object-position: 50% 50% !important;
+  object-fit: cover; object-position: 50% 50%;
   display: block;
 }
 .cat-caption {

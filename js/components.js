@@ -10,13 +10,13 @@ const SITE = {
   initials: "JS",
   email: "spenker.justin@gmail.com",
   github: "https://github.com/JSpenk",
+  linkedin: "https://www.linkedin.com/in/justin-spenker/",
 };
 
 const NAV_ITEMS = [
   { href: "index.html", label: "Home", page: "home" },
   { href: "projects.html", label: "Projects", page: "projects" },
-  { href: "demo-fault-injection.html", label: "Demos", page: "demo" },
-  { href: "lab.html", label: "Lab", page: "lab", isNew: true },
+  { href: "demo-fault-injection.html", label: "Demos", page: "demo", isNew: true },
   { href: "skills.html", label: "Skills", page: "skills" },
   { href: "resume.html", label: "Resume", page: "resume" },
   { href: "about.html", label: "About", page: "about" },
@@ -72,6 +72,8 @@ function renderFooter() {
         <div class="foot-left">&copy; ${year} ${SITE.name} &mdash; Computer Engineering, UC Davis</div>
         <div class="foot-right">
           <a href="${SITE.github}" target="_blank" rel="noopener">GitHub</a>
+          &nbsp;&middot;&nbsp;
+          <a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn</a>
           &nbsp;&middot;&nbsp;
           <a href="mailto:${SITE.email}">${SITE.email}</a>
         </div>
